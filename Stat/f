@@ -1,0 +1,62 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+X = np.array([1025.44, 1654.42, 3250.71, 1578.65, 833.17, 1653.18, 3711.21, 693.9, 840.95, 
+    1551.63, 3710.41, 3716.92, 3172.77, 797.59, 3646.57, 2428.05, 3651.71, 1072.36, 
+    827.97, 1169.57, 2258.52, 3596.21, 1083.62, 1007.03, 3152.43, 4028.41, 1697.37, 
+    1434.43, 2294.17, 4096.87, 570.81, 2407.35, 1266.47, 1040.61, 3744.96, 908.52, 
+    2224.74, 2487.97, 3135.49, 842.11, 5602.46, 1229.69, 2534.83, 4361.12, 5343.78, 
+    1352.44, 1453.42, 916.02, 5857.81, 2407.98, 5290.54, 851.01, 1985.2, 1676.63, 
+    4286.13, 1992.89, 2883.09, 1409.86, 1619.45, 5776.4, 1466.07, 1598.62])
+
+Y = np.array([49, 85, 179, 106, 64, 63, 232, 42, 54, 102, 200, 235, 171, 49, 246, 
+    119, 213, 68, 56, 76, 112, 237, 68, 58, 202, 288, 97, 72, 150, 251, 
+    46, 134, 76, 60, 227, 61, 107, 148, 200, 49, 319, 70, 159, 264, 293, 
+    85, 72, 77, 338, 159, 291, 66, 111, 90, 240, 80, 172, 82, 106, 349, 
+    78, 112])
+
+# Etape 1 : Calcul des moyennes
+mean_X = sum(X) / len(X)
+mean_Y = sum(Y) / len(Y)
+# Etape 2 : Calcul de la difference X - moyenne
+X_diff = [x - mean_X for x in X]
+Y_diff = [y - mean_Y for y in Y]
+# Etape 3 : Calcul du numerateur (somme des produits des ecarts quadratiques)
+num = sum(xd * yd for xd, yd in zip(X_diff, Y_diff))
+# Etape 4 : Calcul du denominateur (les variances de X et Y)
+denom_X = sum(xd ** 2 for xd in X_diff)
+denom_Y = sum(yd ** 2 for yd in Y_diff)
+# Etape 5 : Calcul du coefficient de correlation
+correlation = num / (np.sqrt(denom_X) * np.sqrt(denom_Y))
+print("Coefficient de correlation de Pearson :", correlation)
+
+def regression_lineaire(X, Y):
+    #===========================================
+    mean_X = sum(X) / len(X)
+    mean_Y = sum(Y) / len(Y)
+    #===========================================
+    X_diff = [x - mean_X for x in X]
+    Y_diff = [y - mean_Y for y in Y]
+    #===========================================
+    num = sum(xd * yd for xd, yd in zip(X_diff, Y_diff))
+    #===========================================
+    denom_X = sum(xd ** 2 for xd in X_diff)
+    denom_Y = sum(yd ** 2 for yd in Y_diff)
+    #===========================================
+
+    cov = sum(xd * yd for xd, yd in zip(X_diff, Y_diff))
+    var = sum(xd ** 2 for xd in X_diff)
+    a = cov/var
+    b = mean_Y - a * mean_X
+    C = a*X+b
+    plt.scatter(X, Y, color='blue', marker='o', alpha=0.7)
+    plt.plot(X, C, color='grey', alpha=0.7)
+    plt.show()
+
+regression_lineaire(X, Y)
+
+#plt.scatter(X, Y, color='blue', marker='o', alpha=0.7)
+#plt.show()
+
+
+#a*X+b

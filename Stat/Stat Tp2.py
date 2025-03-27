@@ -31,7 +31,7 @@ denom_X = sum(xd ** 2 for xd in X_diff)
 denom_Y = sum(yd ** 2 for yd in Y_diff)
 # Etape 5 : Calcul du coefficient de correlation
 correlation = num / (np.sqrt(denom_X) * np.sqrt(denom_Y))
-print("Coefficient de correlation de Pearson :", correlation)
+#print("Coefficient de correlation de Pearson :", correlation)
 
 
 def regression_lineaire(X, Y):
@@ -120,7 +120,39 @@ while (Annees[i] > 2000):#!= 2005
 
 #===========================================================================================================================
 
+Region = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
+X = np.array([7.7,5.8,11.5,2.1,3.7,3.6,7.5,4.2,3.8,10.3,8.6,7.2])
+Y = np.array([12,9,15,4,4,2,10,3,5,11,10,11])
 
+def regression_lineaire_2(X, Y):
+    #===========================================
+    mean_X = sum(X) / len(X)
+    mean_Y = sum(Y) / len(Y)
+    #===========================================
+    X_diff = [x - mean_X for x in X]
+    Y_diff = [y - mean_Y for y in Y]
+    #===========================================
+    num = sum(xd * yd for xd, yd in zip(X_diff, Y_diff))
+    #===========================================
+    denom_X = sum(xd ** 2 for xd in X_diff)
+    denom_Y = sum(yd ** 2 for yd in Y_diff)
+    #===========================================
+    correlation = num / (np.sqrt(denom_X) * np.sqrt(denom_Y))
+    print("Coefficient de correlation de Pearson :", correlation)
+    #===========================================
 
+    cov = sum(xd * yd for xd, yd in zip(X_diff, Y_diff))
+    var = sum(xd ** 2 for xd in X_diff)
+    a = cov/var
+    b = mean_Y - a * mean_X
+    c = a*7.5+b
+    print(c)
+    plt.scatter(X, Y, color='blue', marker='o', alpha=0.7)
+    plt.plot(X, a*X+b, color='grey', alpha=0.7)
+    plt.show()
 
+#plt.scatter(X, Y, color='blue', marker='o', alpha=0.7)
+#plt.show()
+
+regression_lineaire_2(X, Y)
 
