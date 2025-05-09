@@ -1,0 +1,5 @@
+[nomDuGraphe].edgesOf(nomD'uneArete) = retourne une liste de toutes les
+liaisons de l'arete choisie
+
+new HashSet<>() = crée un ensemble vide /// new ArrayList<>() = crée une liste vide
+Set<Type> = type d'un ensemble /// List<Type> = type d'une liste
